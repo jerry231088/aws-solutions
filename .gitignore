@@ -1,9 +1,13 @@
+.DS_Store
+.idea/*
 # Local .terraform directories
 .terraform/
 
 # .tfstate files
 *.tfstate
 *.tfstate.*
+
+# Do NOT ignore .terraform.lock.hcl
 
 # Crash log files
 crash.log
