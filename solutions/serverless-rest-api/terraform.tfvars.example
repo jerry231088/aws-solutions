@@ -1,0 +1,11 @@
+aws_region = "eu-central-1"
+
+project_name = "serverless-rest-api"
+
+environment = "dev"
+
+lambda_runtime = "python3.14"
+
+lambda_memory_size = 256
+
+lambda_timeout = 60
