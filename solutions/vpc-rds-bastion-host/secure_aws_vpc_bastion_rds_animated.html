@@ -2279,67 +2279,90 @@ body[data-not-sent] > #vis-container ~ #not-sent {
 .card{flex:1;min-width:200px;border-radius:8px;padding:8px 10px;font-size:12px;line-height:1.5}
 .b{display:inline-flex;width:18px;height:18px;border-radius:50%;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#fff;margin-right:6px}
 .steps{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.st{flex:1;min-width:130px;border:.5px solid #24365c;border-radius:8px;padding:8px;font-size:12px;color:#9db2d4;line-height:1.4}
+.st{flex:1;min-width:120px;border:.5px solid #24365c;border-radius:8px;padding:8px;font-size:12px;color:#9db2d4;line-height:1.4}
 .st b{display:block;color:#fff;font-weight:500;margin-bottom:2px}
 </style>
 <div class="pn">
-<h3>Serverless REST API on AWS</h3>
-<p>Client requests flow through API Gateway and Lambda to DynamoDB, with no servers to manage</p>
-<svg width="100%" viewBox="0 0 680 270" role="img">
-<title>Animated serverless REST API architecture</title>
-<desc>A client sends a request to API Gateway, which invokes Lambda, which reads or writes DynamoDB. The response returns along a dashed path back to the client.</desc>
+<h3>VPC with private and public subnets, NAT gateway, RDS and bastion host</h3>
+<p>Secure access to RDS via bastion host with controlled inbound access</p>
+<svg width="100%" viewBox="0 0 680 460" role="img">
+<title>Animated VPC architecture</title>
+<desc>Traffic flows from your IP through the internet and internet gateway to a bastion host in a public subnet, then to RDS in a private subnet. The NAT gateway sends outbound traffic to the internet.</desc>
 <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></marker></defs>
 
-<rect x="150" y="10" width="522" height="250" rx="6" fill="none" stroke="#2a8cff" stroke-width="1.5"></rect>
-<text class="ts" x="162" y="28" style="fill:#5db0ff">AWS Region</text>
+<rect x="8" y="8" width="664" height="440" rx="6" fill="none" stroke="#2a8cff" stroke-width="1.5"></rect>
+<text class="ts" x="20" y="26" style="fill:#5db0ff">AWS Region</text>
+<rect x="25" y="165" width="630" height="275" rx="6" fill="none" stroke="#22c55e" stroke-width="1.5"></rect>
+<text class="th" x="38" y="184" style="fill:#fff">VPC <tspan style="fill:#9db2d4" font-weight="400">10.0.0.0/16</tspan></text>
 
-<text class="ts" x="60" y="62" text-anchor="middle" style="fill:#e6edf7">Client</text>
-<text class="ts" x="60" y="78" text-anchor="middle" style="fill:#9db2d4">Web or mobile</text>
-<rect x="43" y="92" width="34" height="22" rx="3" fill="#14264a" stroke="#8fb4ff"></rect>
-<rect x="36" y="116" width="48" height="4" rx="2" fill="#8fb4ff"></rect>
+<rect x="40" y="195" width="290" height="235" rx="6" fill="none" stroke="#2a8cff" stroke-dasharray="5 4"></rect>
+<rect x="350" y="195" width="290" height="235" rx="6" fill="none" stroke="#2a8cff" stroke-dasharray="5 4"></rect>
+<text class="ts" x="185" y="212" text-anchor="middle" style="fill:#7cc4ff">Availability zone A</text>
+<text class="ts" x="495" y="212" text-anchor="middle" style="fill:#7cc4ff">Availability zone B</text>
 
-<text class="th" x="240" y="62" text-anchor="middle" style="fill:#e6edf7">API Gateway</text>
-<text class="ts" x="240" y="78" text-anchor="middle" style="fill:#9db2d4">Routes, auth, throttling</text>
-<rect x="216" y="91" width="48" height="48" rx="10" fill="#5b2fc9" stroke="#a78bfa"></rect>
-<path d="M232 115h16m-5-5l5 5l-5 5M232 105v20" fill="none" stroke="#fff" stroke-width="2"></path>
+<rect x="52" y="222" width="266" height="84" rx="6" fill="#0f2a22" stroke="#22c55e" stroke-width="1.5"></rect>
+<rect x="362" y="222" width="266" height="84" rx="6" fill="#0f2a22" stroke="#22c55e" stroke-width="1.5"></rect>
+<text class="ts" x="64" y="236" style="fill:#c9f5d8">Public 10.0.1.0/24</text>
+<text class="ts" x="374" y="236" style="fill:#c9f5d8">Public 10.0.2.0/24</text>
+<rect x="52" y="322" width="266" height="96" rx="6" fill="#0c2340" stroke="#1e90ff" stroke-width="1.5"></rect>
+<rect x="362" y="322" width="266" height="96" rx="6" fill="#0c2340" stroke="#1e90ff" stroke-width="1.5"></rect>
+<text class="ts" x="64" y="336" style="fill:#bfe0ff">Private 10.0.11.0/24</text>
+<text class="ts" x="374" y="336" style="fill:#bfe0ff">Private 10.0.12.0/24</text>
 
-<text class="th" x="400" y="62" text-anchor="middle" style="fill:#e6edf7">Lambda</text>
-<text class="ts" x="400" y="78" text-anchor="middle" style="fill:#9db2d4">Runs business logic</text>
-<rect x="376" y="91" width="48" height="48" rx="10" fill="#f97316"></rect>
-<path d="M392 106l10 0l8 18M392 124l6-18" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<ellipse cx="340" cy="48" rx="44" ry="22" fill="#12254a" stroke="#9cc4ff" stroke-width="1.5"></ellipse>
+<text class="th" x="340" y="48" text-anchor="middle" dominant-baseline="central" style="fill:#fff">Internet</text>
+<rect x="55" y="36" width="34" height="22" rx="3" fill="#14264a" stroke="#8fb4ff"></rect>
+<rect x="48" y="60" width="48" height="4" rx="2" fill="#8fb4ff"></rect>
+<text class="ts" x="72" y="82" text-anchor="middle" style="fill:#e6edf7">Your IP</text>
+<text class="ts" x="72" y="96" text-anchor="middle" style="fill:#9db2d4">1.2.3.4/32</text>
 
-<text class="th" x="560" y="62" text-anchor="middle" style="fill:#e6edf7">DynamoDB</text>
-<text class="ts" x="560" y="78" text-anchor="middle" style="fill:#9db2d4">NoSQL data store</text>
-<rect x="536" y="91" width="48" height="48" rx="10" fill="#4f46e5"></rect>
-<ellipse cx="560" cy="106" rx="12" ry="5" fill="none" stroke="#fff" stroke-width="1.5"></ellipse>
-<path d="M548 106v20a12 5 0 0 0 24 0v-20M548 116a12 5 0 0 0 24 0" fill="none" stroke="#fff" stroke-width="1.5"></path>
+<circle cx="340" cy="118" r="16" fill="#5b2fc9" stroke="#a78bfa"></circle>
+<path d="M333 126v-8a7 7 0 0 1 14 0v8" fill="none" stroke="#fff" stroke-width="2"></path>
+<text class="ts" x="362" y="122" style="fill:#e6edf7">Internet gateway</text>
 
-<path class="fl" stroke="#6366f1" d="M92 115L212 115" marker-end="url(#ar)"></path>
-<path class="fl" stroke="#29a3ff" d="M268 115L372 115" marker-end="url(#ar)"></path>
-<path class="fl" stroke="#22c55e" d="M428 115L532 115" marker-end="url(#ar)"></path>
-<path class="fl" stroke="#f5a623" d="M560 143L560 215L60 215L60 128" marker-end="url(#ar)"></path>
+<rect x="94" y="248" width="32" height="30" rx="4" fill="#f97316"></rect>
+<rect x="101" y="255" width="12" height="12" fill="none" stroke="#fff" stroke-width="1.5"></rect>
+<rect x="107" y="261" width="12" height="12" fill="none" stroke="#fff" stroke-width="1.5"></rect>
+<text class="ts" x="110" y="294" text-anchor="middle" style="fill:#e6edf7">Bastion host</text>
+<g><circle cx="250" cy="263" r="16" fill="#5b2fc9" stroke="#a78bfa"></circle><path d="M243 263h14m-5-5l5 5l-5 5" fill="none" stroke="#fff" stroke-width="2"></path>
+<text class="ts" x="250" y="294" text-anchor="middle" style="fill:#e6edf7">NAT gateway</text></g>
+<g><circle cx="495" cy="263" r="16" fill="#5b2fc9" stroke="#a78bfa"></circle><path d="M488 263h14m-5-5l5 5l-5 5" fill="none" stroke="#fff" stroke-width="2"></path>
+<text class="ts" x="495" y="294" text-anchor="middle" style="fill:#e6edf7">NAT gateway</text></g>
 
-<g><circle cx="152" cy="115" r="9" fill="#6366f1"></circle><text class="ts" x="152" y="115" text-anchor="middle" dominant-baseline="central" style="fill:#fff">1</text></g>
-<g><circle cx="320" cy="115" r="9" fill="#29a3ff"></circle><text class="ts" x="320" y="115" text-anchor="middle" dominant-baseline="central" style="fill:#fff">2</text></g>
-<g><circle cx="480" cy="115" r="9" fill="#22c55e"></circle><text class="ts" x="480" y="115" text-anchor="middle" dominant-baseline="central" style="fill:#fff">3</text></g>
-<g><circle cx="310" cy="215" r="9" fill="#f5a623"></circle><text class="ts" x="310" y="215" text-anchor="middle" dominant-baseline="central" style="fill:#1a1200">4</text></g>
-<text class="ts" x="330" y="243" text-anchor="middle" style="fill:#9db2d4">JSON response returns to the client</text>
+<g><rect x="165" y="352" width="40" height="36" rx="8" fill="#4f46e5"></rect><ellipse cx="185" cy="362" rx="10" ry="4" fill="none" stroke="#fff" stroke-width="1.5"></ellipse><path d="M175 362v16a10 4 0 0 0 20 0v-16M175 370a10 4 0 0 0 20 0" fill="none" stroke="#fff" stroke-width="1.5"></path>
+<text class="ts" x="185" y="406" text-anchor="middle" style="fill:#e6edf7">RDS PostgreSQL</text></g>
+<g><rect x="475" y="352" width="40" height="36" rx="8" fill="#4f46e5"></rect><ellipse cx="495" cy="362" rx="10" ry="4" fill="none" stroke="#fff" stroke-width="1.5"></ellipse><path d="M485 362v16a10 4 0 0 0 20 0v-16M485 370a10 4 0 0 0 20 0" fill="none" stroke="#fff" stroke-width="1.5"></path>
+<text class="ts" x="495" y="406" text-anchor="middle" style="fill:#e6edf7">RDS PostgreSQL</text></g>
 
-<circle r="5" fill="#a5a8ff" opacity="0"><animateMotion id="a1" dur="1.4s" begin="0s;a4.end" path="M92 115L212 115"></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="1.4s" begin="a1.begin"></animate></circle>
-<circle r="5" fill="#7cc8ff" opacity="0"><animateMotion id="a2" dur="1.4s" begin="a1.end" path="M268 115L372 115"></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="1.4s" begin="a2.begin"></animate></circle>
-<circle r="5" fill="#6ee7a0" opacity="0"><animateMotion id="a3" dur="1.4s" begin="a2.end" path="M428 115L532 115"></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="1.4s" begin="a3.begin"></animate></circle>
-<circle r="5" fill="#ffd27a" opacity="0"><animateMotion id="a4" dur="2.4s" begin="a3.end" path="M560 143L560 215L60 215L60 128"></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.05;.95;1" dur="2.4s" begin="a4.begin"></animate></circle>
+<path class="fl" stroke="#6366f1" d="M100 47L294 47" marker-end="url(#ar)"></path>
+<path class="fl" stroke="#29a3ff" d="M340 132L340 176L280 176L280 220" marker-end="url(#ar)"></path>
+<path class="fl" stroke="#22c55e" d="M340 176L215 176L215 263L132 263" marker-end="url(#ar)"></path>
+<path class="fl" stroke="#22c55e" d="M94 270L58 270L58 346L185 346L185 350" marker-end="url(#ar)"></path>
+<path class="fl" stroke="#f5a623" d="M268 263L310 263L310 72" marker-end="url(#ar)"></path>
+
+<g><circle cx="200" cy="47" r="9" fill="#6366f1"></circle><text class="ts" x="200" y="47" text-anchor="middle" dominant-baseline="central" style="fill:#fff">1</text></g>
+<g><circle cx="340" cy="156" r="9" fill="#29a3ff"></circle><text class="ts" x="340" y="156" text-anchor="middle" dominant-baseline="central" style="fill:#fff">2</text></g>
+<g><circle cx="215" cy="206" r="9" fill="#22c55e"></circle><text class="ts" x="215" y="206" text-anchor="middle" dominant-baseline="central" style="fill:#fff">3</text></g>
+<g><circle cx="58" cy="312" r="9" fill="#22c55e"></circle><text class="ts" x="58" y="312" text-anchor="middle" dominant-baseline="central" style="fill:#fff">4</text></g>
+<g><circle cx="310" cy="120" r="9" fill="#f5a623"></circle><text class="ts" x="310" y="120" text-anchor="middle" dominant-baseline="central" style="fill:#1a1200">5</text></g>
+
+<circle r="5" fill="#a5a8ff" opacity="0"><animateMotion id="a1" dur="1.8s" begin="0s;a5.end" path="M100 47L294 47"></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="1.8s" begin="a1.begin"></animate></circle>
+<circle r="5" fill="#7cc8ff" opacity="0"><animateMotion id="a2" dur="1.8s" begin="a1.end" path="M340 132L340 176L280 176L280 220"></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="1.8s" begin="a2.begin"></animate></circle>
+<circle r="5" fill="#6ee7a0" opacity="0"><animateMotion id="a3" dur="1.8s" begin="a2.end" path="M340 176L215 176L215 263L132 263"></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="1.8s" begin="a3.begin"></animate></circle>
+<circle r="5" fill="#6ee7a0" opacity="0"><animateMotion id="a4" dur="1.8s" begin="a3.end" path="M94 270L58 270L58 346L185 346L185 350"></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="1.8s" begin="a4.begin"></animate></circle>
+<circle r="5" fill="#ffd27a" opacity="0"><animateMotion id="a5" dur="1.8s" begin="a4.end" path="M268 263L310 263L310 72"></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="1.8s" begin="a5.begin"></animate></circle>
 </svg>
 
 <div class="row">
-<div class="card" style="background:#1b1640;border:.5px solid #7c6cf0"><b style="color:#c4bcff;font-weight:500">API Gateway settings</b><br>Auth: Cognito or IAM authorizer<br>Throttling and CORS as needed</div>
-<div class="card" style="background:#2a1a0c;border:.5px solid #f97316"><b style="color:#ffb066;font-weight:500">Lambda execution role</b><br>Allow: GetItem, PutItem, Query on the table<br>Logs to CloudWatch</div>
+<div class="card" style="background:#2a1a0c;border:.5px solid #f97316"><b style="color:#ffb066;font-weight:500">Bastion security group</b><br>Inbound: SSH (22) from your IP (1.2.3.4/32)<br>Outbound: all traffic (or as needed)</div>
+<div class="card" style="background:#1b1640;border:.5px solid #7c6cf0"><b style="color:#c4bcff;font-weight:500">RDS security group</b><br>Inbound: PostgreSQL (5432) from bastion SG<br>Outbound: all traffic (or as needed)</div>
 </div>
 <div class="steps">
-<div class="st"><b><span class="b" style="background:#6366f1">1</span>Client request</b>HTTPS call such as GET /items</div>
-<div class="st"><b><span class="b" style="background:#29a3ff">2</span>Invoke Lambda</b>API Gateway triggers the function</div>
-<div class="st"><b><span class="b" style="background:#22c55e">3</span>Read or write</b>Lambda queries DynamoDB</div>
-<div class="st"><b><span class="b" style="background:#f5a623">4</span>Response</b>Result returns to the client as JSON</div>
+<div class="st"><b><span class="b" style="background:#6366f1">1</span>Your IP</b>SSH from your allowed IP address</div>
+<div class="st"><b><span class="b" style="background:#29a3ff">2</span>Internet to public subnet</b>Traffic enters via the internet gateway</div>
+<div class="st"><b><span class="b" style="background:#22c55e">3</span>SSH to bastion</b>You connect to the EC2 bastion host</div>
+<div class="st"><b><span class="b" style="background:#22c55e">4</span>Bastion to RDS</b>Bastion connects to the private database</div>
+<div class="st"><b><span class="b" style="background:#f5a623">5</span>NAT to internet</b>Private resources get outbound-only access</div>
 </div>
 </div>
 </div></body></html>
